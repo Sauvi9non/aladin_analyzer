@@ -1,0 +1,3 @@
+run_at,mode,target,ok,fail,api_calls,note
+2026-10-02T10:33:36.636087+00:00,backfill,"Book,eBook",688,12,700,
+2026-10-02T11:13:32.156895+00:00,snapshot,2026-10-02,2716,284,3000,
