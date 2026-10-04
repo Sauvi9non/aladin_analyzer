@@ -3,7 +3,7 @@ name: aladin daily snapshot
 on:
   schedule:
     # UTC 기준 21:00 = 한국시간 06:00
-    - cron: "0 21 * * *"
+    - cron: "0 2 * * *"
   workflow_dispatch:        # 수동 실행 버튼
 
 permissions:
@@ -28,7 +28,8 @@ jobs:
         env:
           TTB_KEY: ${{ secrets.TTB_KEY }}
           ALADIN_DAILY_BUDGET: "4500"
-        run: python aladin_collect.py snapshot
+          TZ: "Asia/Seoul"
+        run: python aladin_collect.py snapshot --date "$(TA=Asia/Seoul date +%F)"
 
       - name: Commit data
         run: |
@@ -42,3 +43,12 @@ jobs:
       - name: Summary
         if: always()
         run: tail -n 3 data/logs/collection_log.csv >> $GITHUB_STEP_SUMMARY
+
+      - name: Verify today's data
+        run: |
+          D=$(TZ=Asia/Seoul date +%F)
+          F="data/raw/lookup/date=$D/lookup.jsonl"
+          test -f "$F" || { echo "::error::$D 수집 파일 없음"; exit 1; }
+          N=$(wc -l < "$F")
+          echo "$D: $N 건" >> $GITHUB_STEP_SUMMARY
+          test "$N" -ge 2000 || { echo "::error::$D 수집 $N 건 (기준 미달)"; exit 1; }
