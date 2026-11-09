@@ -8,7 +8,7 @@
   snapshot : 패널 전체에 ItemLookUp 실행 (매일 1회, 10/30까지)
 
 사용 예
-  export TTB_KEY='ttbxxxdmstj1046001'
+  export TTB_KEY='ttb...'
   python aladin_collect.py backfill --start 2021-01 --end 2026-10
   python aladin_collect.py panel --limit 3000
   python aladin_collect.py snapshot
