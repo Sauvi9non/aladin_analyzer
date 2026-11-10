@@ -1,4 +1,4 @@
 *.ipynb
 .ipynb_checkpoints/
 .env
-airflow/warehouse/
+airflow/warehouse/__pycache__/
