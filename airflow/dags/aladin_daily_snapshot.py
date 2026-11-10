@@ -118,7 +118,7 @@ def load(df: pd.DataFrame, stats: dict, snapshot_date: str, db_path: Path) -> No
     schedule="@daily",
     start_date=datetime(2026, 10, 2),
     end_date=datetime(2026, 10, 30),
-    catchup=False,          # 수요일 백필 때 True로 바꿈
+    catchup=True,          # 수요일 백필 때 True로 바꿈
     max_active_runs=1,      # DuckDB 파일은 한 번에 하나만 쓰도록
     tags=["aladin"],
 )
